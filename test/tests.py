@@ -7,7 +7,8 @@ r = redis.Redis()
 class Queue(unittest.TestCase):
     def setUp(self):
 	r.delete('qrtestqueue')
-        self.q = qr.Queue(key='qrtestqueue')
+        self.q = qr.Queue(key='qrtestqueue',
+                          redis_init_kwargs = {'host': 'localhost', 'port': 6379})
         self.assertEquals(len(self.q.elements()), 0)
 
     def test_roundtrip(self):
